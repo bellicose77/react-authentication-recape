@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { GoogleAuthProvider,getAuth,signInWithPopup, initializeAuth } from "firebase/auth";
+import { GoogleAuthProvider,getAuth,signInWithPopup, signOut } from "firebase/auth";
 const provider = new GoogleAuthProvider();
 const Googlelogin = () => {
     const [user,setUser]=useState('')
+    const auth = getAuth();
     const handleGoogleSignIN = () =>{
-        const auth = getAuth();
+       
         signInWithPopup(auth,provider)
         .then((result) => {
           const loginuser = result.user;
@@ -12,9 +13,22 @@ const Googlelogin = () => {
         })
         console.log("Button works")
       }
+      const handleSignOut = ()=>{
+          signOut(auth)
+          .then(()=>{
+              setUser('')
+          })
+          console.log("logout button")
+      }
     return (
         <div>
-          <button onClick={handleGoogleSignIN}>Google SignIN</button>  
+            {user.name?
+            <button onClick={()=>handleSignOut()}>Sign Out</button> 
+            :
+            <button onClick={handleGoogleSignIN}>Google SignIN</button>
+                
+            }
+        
 
           <p>User Name:{user.displayName}</p>
           <br/>
