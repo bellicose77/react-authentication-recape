@@ -22,7 +22,7 @@ const Googlelogin = () => {
       }
     return (
         <div>
-            {user.name?
+            { user.displayName ?
             <button onClick={()=>handleSignOut()}>Sign Out</button> 
             :
             <button onClick={handleGoogleSignIN}>Google SignIN</button>
